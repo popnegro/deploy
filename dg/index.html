@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio de branding, diseño y desarrollo web de Luis Grasso.">
+<meta name="theme-color" content="#F5F3EE">
+<meta name="color-scheme" content="light">
 <title>Luis Grasso — Porfolio de Branding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -19,6 +22,10 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *, *::before, *::after{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
   body{
     background:var(--paper);
     color:var(--ink);
@@ -141,11 +148,33 @@
     background:#EDEAE2;
     border-bottom:1px solid var(--line);
   }
+  .frame::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(245,243,238,0) 0%, rgba(255,255,255,0.75) 50%, rgba(245,243,238,0) 100%);
+    background-size:200% 100%;
+    opacity:0;
+    transform:translateX(-100%);
+    transition:opacity .2s ease;
+  }
+  .frame.is-loading::before{
+    opacity:1;
+    animation: shimmer 1.1s infinite linear;
+  }
   .frame img{
     width:100%; height:100%;
     object-fit:cover;
     display:block;
-    transition:transform .5s ease;
+    opacity:0;
+    transition:opacity .25s ease, transform .5s ease;
+  }
+  @media (max-width: 768px){
+    .frame{ aspect-ratio:4/3; }
+    .frame img{ object-position:center; }
+  }
+  .frame img.loaded{ opacity:1; }
+  @keyframes shimmer{
+    from{transform:translateX(-100%);} to{transform:translateX(100%);} 
   }
   .card:hover .frame img{ transform:scale(1.045); }
   .frame-tag{
@@ -356,7 +385,7 @@
   <div class="lb-stage">
     <div class="lb-stage-row">
       <button class="lb-nav" id="lbPrev">&#8249;</button>
-      <img id="lbImg" src="" alt="">
+      <img id="lbImg" src="" alt="" loading="eager" decoding="async" width="1200" height="750">
       <button class="lb-nav" id="lbNext">&#8250;</button>
     </div>
   </div>
@@ -389,10 +418,11 @@ function getProjectImages(p){
   return [];
 }
 
-function getProjectImage(p){
+function getProjectImage(p, prioritize = false){
   if (p.imageUrl) return imgSrc(p.imageUrl);
   const images = getProjectImages(p);
-  return images.length ? imgSrc(images[0]) : '';
+  if (!images.length) return '';
+  return imgSrc(prioritize ? images[0] : images[0]);
 }
 
 const grid = document.getElementById('grid');
@@ -405,8 +435,8 @@ function render(filter){
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <div class="frame">
-        <img src="${getProjectImage(p)}" alt="${p.title}">
+      <div class="frame is-loading">
+        <img src="${getProjectImage(p, true)}" alt="${p.title}" loading="${idx < 3 ? 'eager' : 'lazy'}" decoding="async" width="1200" height="750" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw">
         <span class="frame-tag">Fr. ${String(idx+1).padStart(2,'0')}/${PROJECTS.length}</span>
         ${images.length > 1 ? `<span class="frame-count">${images.length} piezas</span>` : ''}
       </div>
@@ -425,6 +455,22 @@ function render(filter){
       }
       openLightbox(PROJECTS.indexOf(p), 0);
     });
+    const cardImg = card.querySelector('img');
+    const cardFrame = card.querySelector('.frame');
+    if (cardImg) {
+      const markLoaded = () => {
+        cardImg.classList.add('loaded');
+        cardFrame?.classList.remove('is-loading');
+      };
+      if (cardImg.complete && cardImg.naturalWidth > 0) markLoaded();
+      else {
+        cardImg.addEventListener('load', markLoaded, { once: true });
+        cardImg.addEventListener('error', () => cardFrame?.classList.remove('is-loading'), { once: true });
+      }
+      if (idx >= 3) {
+        cardImg.loading = 'lazy';
+      }
+    }
     grid.appendChild(card);
   });
 }
@@ -445,6 +491,15 @@ const lbDesc = document.getElementById('lbDesc');
 const lbCount = document.getElementById('lbCount');
 let currentProject = 0;
 let currentImg = 0;
+let preloadImage = null;
+
+function preloadImageSrc(src){
+  if (!src) return;
+  if (preloadImage && preloadImage.src === src) return;
+  preloadImage = new Image();
+  preloadImage.decoding = 'async';
+  preloadImage.src = src;
+}
 
 function openLightbox(pIdx, iIdx){
   currentProject = pIdx;
@@ -456,7 +511,9 @@ function updateLightbox(){
   const p = PROJECTS[currentProject];
   const images = getProjectImages(p);
   const imageKey = images[currentImg] || p.imageUrl || '';
-  lbImg.src = imgSrc(imageKey);
+  const resolvedSrc = imgSrc(imageKey);
+  lbImg.src = resolvedSrc;
+  preloadImageSrc(resolvedSrc);
   lbTitle.textContent = p.title;
   lbDesc.textContent = p.desc;
   lbCount.textContent = `${p.category} — pieza ${currentImg+1} de ${images.length || 1}`;
