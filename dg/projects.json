@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Alivia — Bolsillo feliz",
+        "category": "Branding",
+        "catKey": "Branding",
+        "desc": "Identidad para una fintech de créditos personales: logotipo con degradé azul a verde y trazo de flecha que sugiere movimiento y alivio financiero.",
+        "images": ["page_02", "page_03", "page_04"]
+    },
+    {
+        "title": "Terminal Mendoza",
+        "category": "Branding",
+        "catKey": "Branding",
+        "desc": "Isologo para la terminal de ómnibus de Mendoza: un pin de geolocalización fusionado con las iniciales, en azul institucional.",
+        "images": ["page_03"]
+    },
+    {
+        "title": "VVA",
+        "category": "Branding",
+        "catKey": "Branding",
+        "desc": "Marca para un colectivo vinculado a derechos y salud reproductiva, en verde y con un corazón integrado al isotipo.",
+        "images": ["page_04"]
+    }
+]
