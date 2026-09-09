@@ -1,15 +1,17 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+const siteUrl = 'https://popnegro-portfolio-popnegros-projects.vercel.app'
+
 export const metadata: Metadata = {
   title: 'Luis Grasso — Digital Product Design',
   description: 'Luis Grasso — 15+ years evolving from visual communication and web design into digital products, UX, technology and AI.',
-  metadataBase: new URL('https://popnegro-portfolio-aokysxmph-popnegros-projects.vercel.app'),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     title: 'Luis Grasso — Digital Product Design',
     description: '15+ years from design to digital products.',
     type: 'website',
-    url: 'https://popnegro-portfolio-aokysxmph-popnegros-projects.vercel.app',
+    url: siteUrl,
     siteName: 'Luis Grasso',
   },
   alternates: { canonical: '/' },

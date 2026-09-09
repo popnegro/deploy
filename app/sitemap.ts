@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [{
-    url: 'https://popnegro-portfolio.vercel.app',
+    url: 'https://popnegro-portfolio-popnegros-projects.vercel.app',
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 1,
