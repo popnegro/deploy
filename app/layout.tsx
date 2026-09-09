@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
-const siteUrl = 'https://popnegro-portfolio-git-feat-porfolio-popnegros-projects.vercel.app'
+const siteUrl = 'https://popnegro-portfolio-popnegros-projects.vercel.app'
 const title = 'Luis Grasso — Digital Product Design, UX/UI & Web'
 const description = 'Luis Grasso es diseñador y constructor de productos digitales en Mendoza, Argentina. Más de 15 años de experiencia en diseño gráfico, branding, campañas digitales, UX/UI, web, marketing y tecnología.'
 
