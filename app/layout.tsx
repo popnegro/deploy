@@ -2,10 +2,16 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SmartWeb — Selected Digital Products',
-  description: 'Selected product, UX, AI and technology work by SmartWeb.',
-  metadataBase: new URL('https://popnegro-portfolio.vercel.app'),
-  openGraph: { title: 'SmartWeb — Selected Digital Products', description: 'Product, UX, AI and technology.', type: 'website', url: 'https://popnegro-portfolio.vercel.app', siteName: 'SmartWeb' },
+  title: 'Luis Grasso — Digital Product Design',
+  description: 'Luis Grasso — 15+ years evolving from visual communication and web design into digital products, UX, technology and AI.',
+  metadataBase: new URL('https://popnegro-portfolio-aokysxmph-popnegros-projects.vercel.app'),
+  openGraph: {
+    title: 'Luis Grasso — Digital Product Design',
+    description: '15+ years from design to digital products.',
+    type: 'website',
+    url: 'https://popnegro-portfolio-aokysxmph-popnegros-projects.vercel.app',
+    siteName: 'Luis Grasso',
+  },
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
 }
