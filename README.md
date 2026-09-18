@@ -101,9 +101,20 @@ npm run build
 npm start
 ```
 
+## Deploy
+
+Optimizado para **Vercel** (Next.js App Router).
+
+1. Importá el repo en [vercel.com/new](https://vercel.com/new)
+2. Framework preset: **Next.js** (detección automática)
+3. (Opcional) Environment variable: `NEXT_PUBLIC_SITE_URL` = `https://tu-dominio.com`
+4. Deploy. Cada push a este branch genera preview; `main` suele ser production.
+
+`siteUrl`, `robots` y `sitemap` resuelven automáticamente `VERCEL_URL` / `VERCEL_PROJECT_PRODUCTION_URL` si no definís `NEXT_PUBLIC_SITE_URL`.
+
 ## Status
 
-**Active portfolio — 2026**
+**Ready for deploy — 2026**
 
 **Luis Grasso** — Digital Product Design · UX/UI · Web · Product · Technology
 
