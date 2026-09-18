@@ -15,23 +15,24 @@ export default function OpenGraphImage() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: 72,
-          background: '#f3f2ee',
-          color: '#11110f',
+          background: '#ffffff',
+          color: '#0d0d0d',
           fontFamily: 'system-ui, sans-serif',
         }}
       >
-        <div style={{ fontSize: 22, letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.55 }}>
-          Product Design · UX/UI · Web · Mendoza
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 16, height: 16, borderRadius: 999, background: '#0d0d0d' }} />
+          <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.02em' }}>Luis Grasso</div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div style={{ fontSize: 72, fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1 }}>
-            Luis Grasso
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 900 }}>
+          <div style={{ fontSize: 56, fontWeight: 400, letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+            15+ años convirtiendo problemas en productos.
           </div>
-          <div style={{ fontSize: 32, opacity: 0.7, maxWidth: 800, lineHeight: 1.25 }}>
-            15+ years turning problems into products
+          <div style={{ fontSize: 22, color: '#6b6b6b', lineHeight: 1.35 }}>
+            Product design · UX/UI · Web · Mendoza, Argentina
           </div>
         </div>
-        <div style={{ fontSize: 20, opacity: 0.5 }}>popnegro · digital product design</div>
+        <div style={{ fontSize: 16, color: '#868686' }}>popnegro-portfolio.vercel.app</div>
       </div>
     ),
     { ...size }

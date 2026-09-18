@@ -13,14 +13,17 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#11110f',
-          color: '#f3f2ee',
-          fontSize: 18,
-          fontWeight: 600,
-          fontFamily: 'system-ui, sans-serif',
+          background: '#ffffff',
         }}
       >
-        LG
+        <div
+          style={{
+            width: 18,
+            height: 18,
+            borderRadius: 999,
+            background: '#0d0d0d',
+          }}
+        />
       </div>
     ),
     { ...size }

@@ -1,24 +1,16 @@
 import type { Metadata } from 'next'
-import { DM_Sans, DM_Mono, Playfair_Display } from 'next/font/google'
+import { Inter, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const dmMono = DM_Mono({
+const instrument = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-  display: 'swap',
-})
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['500', '600'],
+  weight: '400',
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
@@ -50,10 +42,6 @@ export const metadata: Metadata = {
     'diseñador UX UI',
     'product designer',
     'diseño web',
-    'diseño de producto',
-    'branding',
-    'marketing digital',
-    'desarrollo web',
     'Mendoza',
     'Argentina',
   ],
@@ -91,21 +79,12 @@ const personJsonLd = {
     'https://www.linkedin.com/in/luis-grasso',
     'https://github.com/popnegro',
   ],
-  knowsAbout: [
-    'Digital Product Design',
-    'UX/UI',
-    'Web Design',
-    'Branding',
-    'Digital Marketing',
-    'SaaS',
-    'Artificial Intelligence',
-  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-AR" className={`${dmSans.variable} ${dmMono.variable} ${playfair.variable}`}>
-      <body className={dmSans.className}>
+    <html lang="es-AR" className={`${inter.variable} ${instrument.variable}`}>
+      <body className={inter.className}>
         {children}
         <script
           type="application/ld+json"
