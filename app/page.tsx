@@ -120,7 +120,7 @@ export default function Home() {
       <Nav />
 
       <section className="hero" id="top">
-        <div className="eyebrow">PRODUCT DESIGN · UX/UI · WEB · BUSINESS <span>·</span> MENDOZA, ARGENTINA</div>
+        <div className="eyebrow">Product design · UX/UI · Web · Business <span>·</span> Mendoza, Argentina</div>
         <h1>15+ años<br /><em>convirtiendo problemas en productos.</em></h1>
         <p className="hero-copy">Soy Luis Grasso. Diseñador y constructor digital. Más de 15 años entre comunicación, diseño, web, UX/UI, marketing y tecnología me enseñaron que una buena solución no empieza por la interfaz: empieza por entender qué problema vale la pena resolver y para quién.</p>
         <div className="hero-actions">
@@ -128,19 +128,20 @@ export default function Home() {
           <a className="hero-secondary" href="#servicios">Qué puedo resolver</a>
         </div>
         <div className="hero-meta">
-          <span>TRABAJO SELECCIONADO / PRESENTE</span>
-          <span>DISEÑO → USUARIO → NEGOCIO → PRODUCTO</span>
+          <span>Trabajo seleccionado</span>
+          <span>Diseño → Usuario → Negocio → Producto</span>
         </div>
+        <span className="hero-scroll" aria-hidden="true">Scroll</span>
       </section>
 
       <section className="statement">
         <p>“El cargo cambia.<br /><strong>El oficio permanece.</strong>”</p>
-        <div>01 / OFICIO</div>
+        <div>01 / Oficio</div>
       </section>
 
       <section className="work" id="trabajo">
         <div className="section-head">
-          <span>TRABAJO SELECCIONADO</span>
+          <span>Trabajo seleccionado</span>
           <h2>Problemas que estoy<br /><em>aprendiendo a resolver.</em></h2>
         </div>
 
@@ -156,10 +157,10 @@ export default function Home() {
                 <h4>{p.title}</h4>
                 <p>{p.desc}</p>
                 <div className="project-evidence">
-                  <div><small>ROL</small><span>{p.role}</span></div>
-                  <div><small>PROBLEMA</small><span>{p.problem}</span></div>
-                  <div><small>RESULTADO</small><span>{p.outcome}</span></div>
-                  <div><small>DECISIÓN</small><span>{p.decision}</span></div>
+                  <div><small>Rol</small><span>{p.role}</span></div>
+                  <div><small>Problema</small><span>{p.problem}</span></div>
+                  <div><small>Resultado</small><span>{p.outcome}</span></div>
+                  <div><small>Decisión</small><span>{p.decision}</span></div>
                 </div>
                 <div className="tags">{p.tags.map((t) => <span key={t}>{t}</span>)}</div>
                 <div className="project-ctas">
@@ -191,7 +192,7 @@ export default function Home() {
 
       <section className="services" id="servicios">
         <div className="section-head">
-          <span>EN QUÉ PUEDO AYUDAR</span>
+          <span>En qué puedo ayudar</span>
           <h2>Diseño con criterio<br /><em>de negocio.</em></h2>
         </div>
         <div className="service-grid">
@@ -205,7 +206,7 @@ export default function Home() {
 
       <section className="approach" id="enfoque">
         <div className="section-head">
-          <span>ENFOQUE</span>
+          <span>Enfoque</span>
           <h2>Antes de diseñar,<br /><em>hay que decidir.</em></h2>
         </div>
         <div className="process">
@@ -224,7 +225,7 @@ export default function Home() {
 
       <section className="story" id="historia">
         <div className="section-head">
-          <span>TRAYECTORIA</span>
+          <span>Trayectoria</span>
           <h2>No cambié de profesión.<br /><em>La fui llevando más lejos.</em></h2>
         </div>
         <div className="story-grid">
@@ -243,18 +244,18 @@ export default function Home() {
 
       <section className="archive" id="archivo">
         <div className="section-head">
-          <span>CONTEXTO / EXPERIENCIA</span>
+          <span>Contexto / experiencia</span>
           <h2>La experiencia detrás<br /><em>del presente.</em></h2>
         </div>
         <p className="archive-intro">No es otro portfolio: es el criterio con el que trabajo hoy.</p>
         <div className="archive-grid">
-          <article><span>01 / BRANDING</span><h3>Sistemas de marca</h3><p>Identidad, key visual y sistemas gráficos entre agencias, startups y trabajo independiente.</p></article>
-          <article><span>02 / CAMPAÑAS</span><h3>Comunicación digital</h3><p>RRSS, Meta Ads, Google Ads, email, banners y adaptaciones multiformato.</p></article>
-          <article><span>03 / COMUNICACIÓN</span><h3>Visual institucional</h3><p>Publicidad e institucional multi-canal con consistencia de marca.</p></article>
-          <article><span>04 / DIGITAL</span><h3>Web e interfaces</h3><p>Diseño web y UI/UX como puente entre comunicación, contenido y producto.</p></article>
+          <article><span>01 / Branding</span><h3>Sistemas de marca</h3><p>Identidad, key visual y sistemas gráficos entre agencias, startups y trabajo independiente.</p></article>
+          <article><span>02 / Campañas</span><h3>Comunicación digital</h3><p>RRSS, Meta Ads, Google Ads, email, banners y adaptaciones multiformato.</p></article>
+          <article><span>03 / Comunicación</span><h3>Visual institucional</h3><p>Publicidad e institucional multi-canal con consistencia de marca.</p></article>
+          <article><span>04 / Digital</span><h3>Web e interfaces</h3><p>Diseño web y UI/UX como puente entre comunicación, contenido y producto.</p></article>
         </div>
         <div className="brands">
-          <div className="brands-head"><span>EXPERIENCIA SELECCIONADA</span></div>
+          <div className="brands-head"><span>Experiencia seleccionada</span></div>
           <div className="brands-track">
             {brands.map((b) => (
               <div className="brand-card" key={b.name}>
@@ -269,26 +270,26 @@ export default function Home() {
 
       <section className="manifest" id="manifiesto">
         <div className="section-head">
-          <span>CÓMO TRABAJO</span>
+          <span>Cómo trabajo</span>
           <h2>Tres principios.<br /><em>Un oficio.</em></h2>
         </div>
         <div className="manifest-grid manifest-grid-3">
-          <article><b>01 / APRENDER</b><h3>Cada proyecto enseña algo.</h3><p>Observar, preguntar y aprender lo suficiente para tomar una buena decisión.</p></article>
-          <article><b>02 / USUARIO + NEGOCIO</b><h3>La interfaz es consecuencia.</h3><p>Persona, necesidad y contexto — y también objetivos, costos y operación.</p></article>
-          <article><b>03 / PRODUCTO</b><h3>Construir no es el objetivo.</h3><p>El objetivo es resolver algo que importa. Diseño y tecnología son medios.</p></article>
+          <article><b>01 / Aprender</b><h3>Cada proyecto enseña algo.</h3><p>Observar, preguntar y aprender lo suficiente para tomar una buena decisión.</p></article>
+          <article><b>02 / Usuario + negocio</b><h3>La interfaz es consecuencia.</h3><p>Persona, necesidad y contexto — y también objetivos, costos y operación.</p></article>
+          <article><b>03 / Producto</b><h3>Construir no es el objetivo.</h3><p>El objetivo es resolver algo que importa. Diseño y tecnología son medios.</p></article>
         </div>
       </section>
 
       <section className="closing" id="contacto">
-        <span>EQUIPOS, STARTUPS, AGENCIAS Y NEGOCIOS</span>
+        <span>Equipos, startups, agencias y negocios</span>
         <h2>¿Tenés un problema<br /><em>que valga la pena resolver?</em></h2>
         <p className="closing-copy">Podemos empezar por entenderlo: qué necesita el proyecto, qué tiene sentido construir ahora y qué puede esperar.</p>
         <ContactBlock />
       </section>
 
       <footer>
-        <span>LUIS GRASSO / DIGITAL PRODUCT DESIGN</span>
-        <span>MENDOZA · ARGENTINA</span>
+        <span>Luis Grasso / Digital product design</span>
+        <span>Mendoza · Argentina</span>
         <a href="https://github.com/popnegro" target="_blank" rel="noopener noreferrer">github.com/popnegro ↗</a>
       </footer>
     </main>
