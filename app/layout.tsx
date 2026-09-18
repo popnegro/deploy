@@ -1,9 +1,40 @@
 import type { Metadata } from 'next'
+import { DM_Sans, DM_Mono, Playfair_Display } from 'next/font/google'
 import './globals.css'
 
-const siteUrl = 'https://popnegro-portfolio-popnegros-projects.vercel.app'
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+})
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+})
+
+function getSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  return 'http://localhost:3000'
+}
+
+const siteUrl = getSiteUrl()
 const title = 'Luis Grasso — Digital Product Design, UX/UI & Web'
-const description = 'Luis Grasso es diseñador y constructor de productos digitales en Mendoza, Argentina. Más de 15 años de experiencia en diseño gráfico, branding, campañas digitales, UX/UI, web, marketing y tecnología.'
+const description =
+  'Luis Grasso es diseñador y constructor de productos digitales en Mendoza, Argentina. Más de 15 años de experiencia en diseño gráfico, branding, campañas digitales, UX/UI, web, marketing y tecnología.'
 
 export const metadata: Metadata = {
   title,
@@ -14,9 +45,17 @@ export const metadata: Metadata = {
   creator: 'Luis Grasso',
   publisher: 'Luis Grasso',
   keywords: [
-    'Luis Grasso', 'diseñador digital', 'diseñador UX UI', 'product designer',
-    'diseño web', 'diseño de producto', 'branding', 'marketing digital',
-    'desarrollo web', 'Mendoza', 'Argentina'
+    'Luis Grasso',
+    'diseñador digital',
+    'diseñador UX UI',
+    'product designer',
+    'diseño web',
+    'diseño de producto',
+    'branding',
+    'marketing digital',
+    'desarrollo web',
+    'Mendoza',
+    'Argentina',
   ],
   openGraph: {
     title,
@@ -43,17 +82,36 @@ const personJsonLd = {
   description,
   url: siteUrl,
   email: 'mailto:grasso.luis@gmail.com',
-  address: { '@type': 'PostalAddress', addressLocality: 'Mendoza', addressCountry: 'AR' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mendoza',
+    addressCountry: 'AR',
+  },
   sameAs: [
     'https://www.linkedin.com/in/luis-grasso',
     'https://github.com/popnegro',
   ],
   knowsAbout: [
-    'Digital Product Design', 'UX/UI', 'Web Design', 'Branding',
-    'Digital Marketing', 'SaaS', 'Artificial Intelligence'
+    'Digital Product Design',
+    'UX/UI',
+    'Web Design',
+    'Branding',
+    'Digital Marketing',
+    'SaaS',
+    'Artificial Intelligence',
   ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="es-AR"><body>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} /></body></html>
+  return (
+    <html lang="es-AR" className={`${dmSans.variable} ${dmMono.variable} ${playfair.variable}`}>
+      <body className={dmSans.className}>
+        {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </body>
+    </html>
+  )
 }

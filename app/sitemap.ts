@@ -1,12 +1,19 @@
 import type { MetadataRoute } from 'next'
 
-const siteUrl = 'https://popnegro-portfolio-popnegros-projects.vercel.app'
+function getSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+  return 'http://localhost:3000'
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{
-    url: siteUrl,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 1,
-  }]
+  return [
+    {
+      url: getSiteUrl(),
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+  ]
 }
