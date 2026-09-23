@@ -8,10 +8,8 @@ async function initializePortfolio() {
     }
 
     try {
-        // Muestra un estado de carga inicial
-        grid.innerHTML = '<p>Cargando proyectos...</p>';
+        grid.innerHTML = '<p class="js-warning">Cargando proyectos…</p>';
 
-        // 1. Cargar los datos de proyectos e imágenes en paralelo
         const [projectsResponse, imagesResponse] = await Promise.all([
             fetch('projects.json'),
             fetch('images.json')
@@ -24,18 +22,13 @@ async function initializePortfolio() {
         const PROJECTS = await projectsResponse.json();
         const IMAGES = await imagesResponse.json();
 
-        // 2. Una vez cargados los datos, renderizar la UI
         renderGrid(PROJECTS, IMAGES, 'all');
-        
-        // 3. Configurar los filtros
         setupFilters(PROJECTS, IMAGES);
-
-        // 4. Configurar el Lightbox
         setupLightbox(PROJECTS, IMAGES);
 
     } catch (error) {
         console.error("Error al inicializar el portfolio:", error);
-        grid.innerHTML = "<p style='color: var(--signal);'>Error al cargar los proyectos. Por favor, intente de nuevo más tarde.</p>";
+        grid.innerHTML = "<p class='js-warning'>Error al cargar los proyectos. Por favor, intente de nuevo más tarde.</p>";
     }
 }
 
@@ -50,30 +43,36 @@ function getProjectImages(p, IMAGES){
   return [];
 }
 
-function getProjectImage(p, IMAGES, prioritize = false){
+function getProjectImage(p, IMAGES){
   const images = getProjectImages(p, IMAGES);
-  if (!images.length) return '';
-  return prioritize ? images[0] : images[0];
+  return images.length ? images[0] : '';
 }
 
 function renderGrid(PROJECTS, IMAGES, filter) {
     const grid = document.getElementById('grid');
     grid.innerHTML = "";
-    
+
+    const visible = PROJECTS.filter(p => filter === 'all' || p.catKey === filter);
+
+    if (!visible.length) {
+        grid.innerHTML = "<p class='js-warning'>No hay proyectos en esta categoría todavía.</p>";
+        return;
+    }
+
     const fragment = document.createDocumentFragment();
 
-    PROJECTS.forEach((p, idx) => {
-        if (filter !== 'all' && p.catKey !== filter) return;
-        
+    visible.forEach((p, idx) => {
         const card = document.createElement('div');
         card.className = 'card';
-        const imagePath = getProjectImage(p, IMAGES, true);
+        card.style.animationDelay = `${Math.min(idx, 10) * 45}ms`;
+
+        const imagePath = getProjectImage(p, IMAGES);
         const images = getProjectImages(p, IMAGES);
 
         card.innerHTML = `
           <div class="frame is-loading">
             <img alt="${p.title}" loading="${idx < 4 ? 'eager' : 'lazy'}" decoding="async" width="1200" height="750">
-            <span class="frame-tag">Fr. ${String(idx+1).padStart(2,'0')}/${PROJECTS.length}</span>
+            <span class="frame-tag">Fr. ${String(idx+1).padStart(2,'0')}/${visible.length}</span>
             ${images.length > 1 ? `<span class="frame-count">${images.length} piezas</span>` : ''}
           </div>
           <div class="card-body">
@@ -81,26 +80,29 @@ function renderGrid(PROJECTS, IMAGES, filter) {
             <div class="card-title">${p.title}</div>
             <div class="card-desc">${p.desc}</div>
           </div>`;
-        
+
         const img = card.querySelector('img');
         const frame = card.querySelector('.frame');
 
-        // Optimización: Solo establecer el 'src' cuando esté a punto de ser visible (para lazy-loading)
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
                 img.src = imagePath;
-                observer.disconnect(); // Dejar de observar una vez que se carga
+                observer.disconnect();
             }
-        }, { rootMargin: '50px' });
+        }, { rootMargin: '80px' });
 
         if (img.loading === 'lazy') {
             observer.observe(card);
         } else {
-            img.src = imagePath; // Cargar inmediatamente para imágenes 'eager'
+            img.src = imagePath;
         }
 
-        img.onload = () => frame.classList.remove('is-loading');
-        img.onerror = () => frame.classList.remove('is-loading'); // También en caso de error
+        const finishLoad = () => {
+            frame.classList.remove('is-loading');
+            img.classList.add('loaded');
+        };
+        img.onload = finishLoad;
+        img.onerror = finishLoad;
 
         card.addEventListener('click', () => openLightbox(PROJECTS.indexOf(p), 0, PROJECTS, IMAGES));
 
@@ -136,7 +138,7 @@ let activeImages = {};
 
 function setupLightbox(PROJECTS, IMAGES) {
     if (!lightbox) return;
-    
+
     activeProjects = PROJECTS;
     activeImages = IMAGES;
 
@@ -156,7 +158,7 @@ function setupLightbox(PROJECTS, IMAGES) {
 function openLightbox(projectIndex, imageIndex, PROJECTS, IMAGES) {
     currentProjectIndex = projectIndex;
     currentImageIndex = imageIndex;
-    activeProjects = PROJECTS; // Actualizar con los datos cargados
+    activeProjects = PROJECTS;
     activeImages = IMAGES;
     updateLightboxContent();
     lightbox.classList.add('open');
@@ -183,11 +185,10 @@ function updateLightboxContent() {
     const imagePath = images[currentImageIndex];
 
     lbImg.src = imagePath;
+    lbImg.alt = p.title;
     lbTitle.textContent = p.title;
     lbDesc.textContent = p.desc;
     lbCount.textContent = `${p.category} — pieza ${currentImageIndex + 1} de ${images.length}`;
 }
 
-
-// Iniciar la aplicación
 document.addEventListener('DOMContentLoaded', initializePortfolio);
